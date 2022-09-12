@@ -1,0 +1,13 @@
+$redColor: red;
+
+.container {
+    background-color: $redColor;
+}
+
+.backgroundDog {
+    background: url('./dog.jpg') no-repeat;
+    background-size: contain;
+    color: white;
+    width: 50px;
+    padding-left: 50px;
+}
