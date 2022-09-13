@@ -17,6 +17,7 @@ render(
 
 console.log('env_custom', import.meta.env.APP_TEST_VAR);
 console.log('env_mode', import.meta.env.MODE);
+console.log('env_by_other_mode', import.meta.env.APP_API_KEY);
 
 function App() {
   return (

@@ -1,7 +1,6 @@
 I'm trying to write vite config for many things.
 
 ### TODO LiST:
- - env.prod / env.dev
  - css normalize
  - css optimization
  - optimize images
