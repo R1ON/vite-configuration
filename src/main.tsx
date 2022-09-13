@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import 'normalize.css';
+
 import CheckAliases from 'app/check/alias';
 
 import Dog from './dog.jpg';
@@ -23,6 +25,7 @@ function App() {
   return (
     <div className={styles.container}>
       APP
+      <button>check normalize.css</button>
       <div className={styles.checkAutoPrefixer}>CheckAutoPrefixer</div>
       <CheckAliases />
       <div className={styles.backgroundDog}>
