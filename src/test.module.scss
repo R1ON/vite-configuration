@@ -4,10 +4,14 @@ $redColor: red;
     background-color: $redColor;
 }
 
-.checkAutoPrefixer {
+.check-auto-prefixer {
     display: flex;
     justify-content: center;
     user-select: none;
+}
+
+.checkStyleLint {
+    opacity: 0.5;
 }
 
 .backgroundDog {

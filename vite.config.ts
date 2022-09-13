@@ -3,6 +3,7 @@ import path from 'path';
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from 'vite-plugin-eslint';
+import stylelintPlugin from 'vite-plugin-stylelint';
 
 import autoprefixer from 'autoprefixer';
 
@@ -41,6 +42,10 @@ export default defineConfig(({ mode }) => {
       eslintPlugin({
         // failOnError: isProd, // TODO не забыть активировать
         failOnError: false,
+      }),
+      stylelintPlugin({
+        // emitError: isProd, // TODO не забыть активировать
+        emitError: false,
       }),
       splitVendorChunkPlugin(),
     ],

@@ -1,7 +1,9 @@
 I'm trying to write vite config for many things.
 
 ### TODO LiST:
- - style lint (https://github.com/ModyQyW/vite-plugin-stylelint)
+ - env.prod / env.dev
+ - css normalize
+ - css optimization
  - optimize images
  - SSR
  - lazy imports
