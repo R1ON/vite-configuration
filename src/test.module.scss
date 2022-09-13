@@ -4,6 +4,12 @@ $redColor: red;
     background-color: $redColor;
 }
 
+.checkAutoPrefixer {
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+
 .backgroundDog {
     background: url('./dog.jpg') no-repeat;
     background-size: contain;

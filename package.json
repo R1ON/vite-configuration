@@ -19,6 +19,7 @@
     "@typescript-eslint/eslint-plugin": "5.37.0",
     "@typescript-eslint/parser": "5.37.0",
     "@vitejs/plugin-react": "^2.1.0",
+    "autoprefixer": "^10.4.10",
     "eslint": "8.22.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-import-name": "1.2.3",
@@ -29,5 +30,10 @@
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
     "vite-plugin-eslint": "^1.8.1"
-  }
+  },
+  "browserslist": [
+    "last 3 chrome version",
+    "last 3 firefox version",
+    "last 3 safari version"
+  ]
 }

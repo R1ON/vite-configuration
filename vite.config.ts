@@ -1,8 +1,12 @@
 import path from 'path';
+
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from 'vite-plugin-eslint';
 
+import autoprefixer from 'autoprefixer';
+
+// ---
 
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
@@ -26,6 +30,11 @@ export default defineConfig(({ mode }) => {
       modules: {
         generateScopedName: isDev ? '[name]__[local]--[hash:base64:5]' : '[hash:base64:5]',
       },
+      postcss: {
+        plugins: [
+          autoprefixer,
+        ],
+      },
     },
     plugins: [
       react(),
@@ -40,14 +49,3 @@ export default defineConfig(({ mode }) => {
     },
   };
 });
-
-// WISH LiST:
-// Оптимизировать картинки сразу через VITE
-// https://github.com/ModyQyW/vite-plugin-stylelint
-// SSR
-// Чанки
-
-// CAN'T ADD:
-// import/no-unresolved - не получилось (хз даже зачем нужно)
-// eslint-import-resolver-typescript и eslint-import-resolver-vite - не сработали
-

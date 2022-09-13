@@ -22,6 +22,7 @@ function App() {
   return (
     <div className={styles.container}>
       APP
+      <div className={styles.checkAutoPrefixer}>CheckAutoPrefixer</div>
       <CheckAliases />
       <div className={styles.backgroundDog}>
         background dog
