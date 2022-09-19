@@ -51,6 +51,15 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       sourcemap: true,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('normalize.css')) {
+              return 'vendor';
+            }
+          },
+        },
+      },
     },
   };
 });

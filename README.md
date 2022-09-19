@@ -1,7 +1,7 @@
 I'm trying to write vite config for many things.
 
 ### TODO LiST:
- - css optimization
+ - rename .eslintrc.json to .eslintrc and try to use import/no-unresolved
  - optimize images
  - SSR
  - lazy imports

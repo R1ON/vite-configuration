@@ -7,6 +7,7 @@ import CheckAliases from 'app/check/alias';
 
 import Dog from './dog.jpg';
 import Svg from './bet.svg';
+import SmallImage from './wallet-one.png';
 
 import styles from './test.module.scss';
 
@@ -33,6 +34,8 @@ function App() {
       </div>
       <img src={Dog}
            width="50" />
+      <img src={SmallImage}
+           width="50" /> {/* Так как картинка маленькая, будет переконверт. в base64 */}
       <img src={Svg}
            width="50" />
     </div>
