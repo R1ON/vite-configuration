@@ -2,13 +2,12 @@ I'm trying to write vite config for many things.
 
 ### TODO LiST:
  - rename .eslintrc.json to .eslintrc and try to use import/no-unresolved
- - SSR
+ - SSR (add more helmet, CSP, middlewares, etc)
  - lazy imports
  - output dir
  - change static folder
  - css chunks
  - HMR
- - TerserPlugin
  - CopyWebpackPlugin
  - polyfills.js
  - pre commit hook

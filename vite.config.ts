@@ -15,6 +15,8 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
   const isProd = mode === 'production';
 
+  const outputPath = path.resolve(__dirname, isDev ? 'build' : 'artifacts');
+
   return {
     // https://vitejs.dev/config/shared-options.html#envprefix:~:text=mport.meta.env.-,SECURITY%20NOTES,-envPrefix%20should%20not
     envPrefix: 'APP_',
@@ -42,6 +44,7 @@ export default defineConfig(({ mode }) => {
     plugins: getPlugins(isProd),
     build: {
       sourcemap: true,
+      outDir: outputPath,
       rollupOptions: {
         output: {
           manualChunks(id) {

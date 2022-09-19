@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+// import { render } from 'react-dom';
 
 import 'normalize.css';
 
@@ -14,16 +14,16 @@ import styles from './test.module.scss';
 
 // ---
 
-render(
-  <App />,
-  document.getElementById('root'),
-);
+// render(
+//   <App />,
+//   document.getElementById('root'),
+// );
 
 console.log('env_custom', import.meta.env.APP_TEST_VAR);
 console.log('env_mode', import.meta.env.MODE);
 console.log('env_by_other_mode', import.meta.env.APP_API_KEY);
 
-function App() {
+export function App() {
   return (
     <div className={styles.container}>
       APP
