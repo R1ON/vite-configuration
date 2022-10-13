@@ -2,12 +2,69 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
+import 'express-async-errors';
+
+
+import crypto from 'crypto';
+
+import helmet from 'helmet';
+
+import cookieParser from 'cookie-parser';
 import { createServer as createViteServer } from 'vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function createServer() {
   const app = express();
+
+  app.use(cookieParser());
+  app.disable('x-powered-by');
+
+  const uuid = crypto.randomUUID();
+
+  const router = express.Router();
+  router.use((req, res, next) => {
+    res.locals.nonce = uuid;
+    next();
+  });
+
+  const currentNonce = (req, res) => `'nonce-${res.locals.nonce}'`;
+
+
+  router.use(helmet.contentSecurityPolicy({
+    directives: {
+      'script-src': [
+        "'self'", // eslint-disable-line quotes
+        currentNonce,
+        "'unsafe-eval'", // eslint-disable-line quotes
+      ],
+      'img-src': [
+        "'self'", // eslint-disable-line quotes
+        'data:',
+      ],
+      'child-src': [
+        "'self'", // eslint-disable-line quotes
+      ],
+      'frame-src': [
+        "'self'", // eslint-disable-line quotes
+      ],
+      'worker-src': [
+        "'self'", // eslint-disable-line quotes
+        'blob:',
+      ],
+      'form-action': [
+        "'self'", // eslint-disable-line quotes
+      ],
+      'frame-ancestors': [
+        "'self'", // eslint-disable-line quotes
+      ],
+    },
+  }));
+
+  router.use(helmet.noSniff());
+  router.use(helmet.frameguard());
+  router.use(helmet.xssFilter());
+
 
   // Create Vite server in middleware mode and configure the app type as
   // 'custom', disabling Vite's own HTML serving logic so parent server
@@ -19,9 +76,9 @@ async function createServer() {
 
   // use vite's connect instance as middleware
   // if you use your own express router (express.Router()), you should use router.use
-  app.use(vite.middlewares);
+  router.use(vite.middlewares);
 
-  app.use('*', async (req, res) => {
+  router.use('*', async (req, res) => {
     const url = req.originalUrl;
 
     try {
@@ -35,6 +92,14 @@ async function createServer() {
       //    also applies HTML transforms from Vite plugins, e.g. global preambles
       //    from @vitejs/plugin-react
       template = await vite.transformIndexHtml(url, template);
+
+      // Implement nonce to RefreshRuntime module
+      // If you have some problems after upgrade @vitejs/plugin-react
+      // Please, check this regexp
+      template = template.replace(
+        /<script type="module">/,
+        `<script type="module" nonce="${uuid}">`,
+      );
 
       // 3. Load the server entry. vite.ssrLoadModule automatically transforms
       //    your ESM source code to be usable in Node.js! There is no bundling
@@ -60,7 +125,12 @@ async function createServer() {
     }
   });
 
-  app.listen(5173);
+  app.use(router);
+
+  app.listen(5173, () => {
+    // eslint-disable-next-line no-console
+    console.log(`Listening @ http://localhost:5173/`);
+  });
 }
 
 createServer();

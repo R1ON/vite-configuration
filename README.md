@@ -1,8 +1,7 @@
 I'm trying to write vite config for many things.
 
 ### TODO LiST:
- - rename .eslintrc.json to .eslintrc and try to use import/no-unresolved
- - SSR (add more helmet, CSP, middlewares, etc)
+ - SSR (middlewares, etc)
  - SSR проверить hydrateRoot
  - lazy imports
  - output dir
@@ -12,6 +11,7 @@ I'm trying to write vite config for many things.
  - CopyWebpackPlugin
  - polyfills.js
  - pre commit hook
+ - bundle analyzer
 
 ### Что не было сделано:
  - import/no-unresolved - не получилось (не очень понятно даже зачем нужно)
