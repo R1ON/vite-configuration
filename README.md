@@ -1,6 +1,9 @@
 I'm trying to write vite config for many things.
 
 ### TODO LiST:
+ - SSR билд для прода
+ - подогнать билд под текущую структуру
+ - nonce формировать в миддлваре
  - SSR (middlewares, etc)
  - SSR проверить hydrateRoot
  - lazy imports
