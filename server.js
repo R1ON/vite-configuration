@@ -89,25 +89,38 @@ async function createServer() {
   // if you use your own express router (express.Router()), you should use router.use
   router.use(vite.middlewares);
 
-  router.use('*', async (req, res) => {
+  router.use('*', async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
       // 1. Read index.html
-      let template;
+      let template = `
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Vite + React + TS</title>
+          </head>
+          <body>
+            <div id="app-root"><!--ssr-outlet--></div>
+            <script type="module" src="/src/entry-client.jsx"></script>
+          </body>
+        </html>      
+      `;
 
-      if (isProd) {
-        template = fs.readFileSync(
-          path.resolve(__dirname, 'artifacts/client/index.html'),
-          'utf-8',
-        );
-      }
-      else {
-        template = fs.readFileSync(
-          path.resolve(__dirname, 'index.html'),
-          'utf-8',
-        );
-      }
+      // if (isProd) {
+      //   template = fs.readFileSync(
+      //     path.resolve(__dirname, 'artifacts/client/index.html'),
+      //     'utf-8',
+      //   );
+      // }
+      // else {
+      //   template = fs.readFileSync(
+      //     path.resolve(__dirname, 'index.html'),
+      //     'utf-8',
+      //   );
+      // }
 
       // 2. Apply Vite HTML transforms. This injects the Vite HMR client, and
       //    also applies HTML transforms from Vite plugins, e.g. global preambles
@@ -128,7 +141,7 @@ async function createServer() {
       const { render } = await vite.ssrLoadModule(
         isProd
           ? './artifacts/server/entry-server.js'
-          : '/src/entry-server.jsx',
+          : '/src/entry-server.tsx',
       );
 
       const context = {};
@@ -137,13 +150,16 @@ async function createServer() {
       //    e.g. ReactDOMServer.renderToString()
       const appHtml = await render(url, context);
 
+      console.log('appHtml', appHtml);
+
       // 5. Inject the app-rendered HTML into the template.
-      const html = template.replace('<!--ssr-outlet-->', appHtml);
+      const html = template.replace('<!--ssr-outlet-->', appHtml.markup);
 
       // 6. Send the rendered HTML back.
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     }
     catch (e) {
+      console.log('ERROR', e);
       // If an error is caught, let Vite fix the stack trace so it maps back to
       // your actual source code.
       vite.ssrFixStacktrace(e);

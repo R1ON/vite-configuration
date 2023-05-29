@@ -1,11 +1,33 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { routerMiddleware, connectRouter } from 'connected-react-router';
 import { App } from './main';
+import ConnectedRouter, { history } from './lib/router';
 
-ReactDOM.hydrateRoot(
-  document.getElementById('root'),
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+// ---
+
+const root = createRoot(document.getElementById('app-root'));
+
+const rootReducer = combineReducers({
+  router: connectRouter(history),
+});
+
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => (
+    getDefaultMiddleware().concat(
+      routerMiddleware(history),
+    )
+  ),
+});
+
+root.render(
+  <Provider store={store}>
+    <ConnectedRouter>
+      <App />
+    </ConnectedRouter>
+  </Provider>,
 );

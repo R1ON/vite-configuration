@@ -23,11 +23,6 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         app: path.resolve(__dirname, 'src/'),
-        // TODO: 'react-dom': isEnvDevelopment ? '@hot-loader/react-dom' : 'react-dom'
-        // TODO: если в коде есть алиасы ниже - выпилить
-        // 'lodash': 'lodash-es',
-        // 'lodash.debounce': 'lodash-es/debounce',
-        // 'lodash.throttle': 'lodash-es/throttle',
       },
     },
     css: {
@@ -72,7 +67,7 @@ function getPlugins(isProd: boolean) {
     splitVendorChunkPlugin(),
     isProd && imageminPlugin({
       gifsicle: false,
-      optipng: false, // Очеень сильно увеличивает время сборки проекта
+      optipng: false, //{ optimizationLevel: 7 }, // Очеень сильно увеличивает время сборки проекта
       webp: false,
       mozjpeg: {
         quality: 70,
