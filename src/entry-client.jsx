@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import * as toolkitRaw from '@reduxjs/toolkit';
+const { configureStore, combineReducers } = ((toolkitRaw).default ?? toolkitRaw);
 import { routerMiddleware, connectRouter } from 'connected-react-router';
 import { App } from './main';
 import ConnectedRouter, { history } from './lib/router';

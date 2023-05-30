@@ -1,7 +1,8 @@
 import React from 'react';
 import { StaticRouter } from 'react-router';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import * as toolkitRaw from '@reduxjs/toolkit';
+const { configureStore } = ((toolkitRaw as any).default ?? toolkitRaw) as typeof toolkitRaw;
 import { App } from './main';
 
 const store = configureStore({
@@ -9,7 +10,7 @@ const store = configureStore({
 });
 
 export async function render(url: string) {
-  return await renderReactComponent((helmetContext, reactRouterContext) => (
+  return await renderReactComponent((_helmetContext, reactRouterContext) => (
     <Provider store={store}>
       <StaticRouter location={url}
                     context={reactRouterContext}>
@@ -66,7 +67,7 @@ class HtmlWritable extends Writable {
     return this.html;
   }
 
-  _write(chunk: any, encoding: any, callback: any) {
+  _write(chunk: any, _encoding: any, callback: any) {
     this.chunks.push(chunk);
     callback();
   }
